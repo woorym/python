@@ -1,28 +1,22 @@
 import sys
-
 input = sys.stdin.readline
 
 n, k = map(int, input().split())
+num_list = []
+sum_cnt = 0
 
-coin_val = {}
-coin_list = []
 for _ in range(n):
-    coin = int(input())
-    coin_list.append(coin)
+    num_list.append(int(input()))
 
-for coin_in in reversed(coin_list):
-    coin_val[coin_in] = 0
+charge = k
+for num in reversed(num_list):
+    cnt = 0
+    if charge >= num:
+        cnt += charge // num
+        charge -= num * cnt
+        sum_cnt += cnt
+        
+    else:
+        continue
 
-check = k
-
-for key in coin_val.keys():
-    if check >= key:
-        num1 = check // key
-        check = check % key
-        coin_val[key] = num1
-
-sum = 0
-for item in coin_val.values():
-    sum += item
-
-print(sum)
+print(sum_cnt)
